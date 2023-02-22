@@ -1,0 +1,23 @@
+body {
+  margin: 50px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 6px 0 16px;
+  resize: vertical;
+}
+#error {
+  margin-top: 30px;
+  color: red;
+}
+
+th {
+  margin: 30px;
+}

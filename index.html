@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Movie Form</h1>
+    <form name="the-form" id="form" action="" method="post" novalidate>
+      <label>Title</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        placeholder="Enter name of movie"
+      />
+      <label>Director</label>
+      <input
+        type="text"
+        name="director"
+        id="director"
+        placeholder="Enter the director"
+      />
+      <label>Year</label>
+      <input
+        type="number"
+        name="year"
+        id="year"
+        placeholder="Enter year of release"
+      />
+      <label>Genre</label>
+      <select name="genre" id="genre">
+        <option value="select_value">Select a genre</option>
+      </select>
+      <input type="submit" value="Submit" id="submit" />
+    </form>
+    <div id="error"></div>
+
+    <table>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Director</th>
+        <th>Year</th>
+        <th>Genre</th>
+      </tr>
+    </table>
+    <script src="main.js"></script>
+  </body>
+</html>
