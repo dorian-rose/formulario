@@ -18,6 +18,15 @@ select {
   color: red;
 }
 
+table {
+  border: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+}
 th {
-  margin: 30px;
+  border: 1px solid black;
+}
+td {
+  border: 1px solid black;
 }
