@@ -30,3 +30,8 @@ th {
 td {
   border: 1px solid black;
 }
+
+#filter {
+  width: 20px;
+  height: 20px;
+}

@@ -8,12 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorList = document.querySelector("#error-list");
   let fragment = document.createDocumentFragment();
 
+  //array for validation of inputs
   let validateObject = {
     title: false,
     director: false,
     genre: false,
     year: false,
   };
+
+  //movies pulls list from local storage
   const movies = JSON.parse(localStorage.getItem("movies")) || [];
 
   //get year:
@@ -25,14 +28,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const regExp = {
     title: /^([a-zÁ-ÿ0-9\-]\s*)+$/i,
     director: /^([a-zÁ-ÿ\-]\s*)+$/i,
+    year: /^\d{4}$/,
     /*year: `/(18\d\d|19\d\d|200\d|201\d|20[0-${yearText[2]}][0-${yearText[3]}])/`,*/
   };
 
+  //event listeners
   form.addEventListener("submit", (ev) => {
     ev.preventDefault();
     validate();
   });
 
+  filter.addEventListener("change", () => filterMoviesGenre());
+
+  //validation of inputs
   const validate = () => {
     errorList.innerHTML = "";
     table.innerHTML = "";
@@ -54,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
       validateObject.director = false;
       errors += "<li>Director not valid</li>";
     }
-    if (year > 1799 && year <= currentYear) {
+    if (regExp.year.test(year) && year > 1799 && year <= currentYear) {
       validateObject.year = true;
     } else {
       validateObject.year = false;
@@ -77,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         genre,
       });
       setLocal();
-      printMovies();
+      printMovies(getLocal());
     } else {
       errorList.innerHTML = errors;
     }
@@ -92,12 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const getLocal = () => {
     return JSON.parse(localStorage.getItem("movies")); //|| []
   };
+
   //print to page
-  const printMovies = () => {
+
+  const printMovies = (moviesToPrint) => {
+    console.log(moviesToPrint);
     let headRow = document.createElement("TR");
     headRow.innerHTML =
       "<th></th><th>Title</th><th>Director</th><th>Year</th><th>Genre</th>";
-    const moviesToPrint = getLocal();
     moviesToPrint.forEach((item, i) => {
       let row = document.createElement("TR");
       let data0 = document.createElement("TD");
@@ -116,6 +126,37 @@ document.addEventListener("DOMContentLoaded", () => {
     table.append(fragment);
   };
 
+  //filter movies
+  //create options for filter select
+  const createFilterOptions = () => {
+    filterByGenreArray = [
+      { value: "action", text: "Action" },
+      { value: "drama", text: "Drama" },
+      { value: "sciFi", text: "SciFi" },
+      { value: "comedy", text: "Comedy" },
+      { value: "romance", text: "Romance" },
+    ];
+
+    filterByGenreArray.forEach(({ value, text }) => {
+      const option = document.createElement("OPTION");
+      option.value = value;
+      option.textContent = text;
+      fragment.append(option);
+    });
+    filter.append(fragment);
+  };
+
+  //filter function
+
+  const filterMoviesGenre = () => {
+    table.innerHTML = "";
+    let selectGenre = filter.value;
+    const filterList = movies.filter(({ genre }) => genre == selectGenre);
+
+    printMovies(filterList);
+  };
+
+  //dynamic creation of options for the genre select
   const createSelectOptions = () => {
     optionsArray = [
       { value: "action", text: "Action" },
@@ -136,5 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Call functions
   createSelectOptions();
-  printMovies();
+  createFilterOptions();
+  printMovies(getLocal());
 }); //LOAD
