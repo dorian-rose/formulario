@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //regular expressions for validation
   const regExp = {
     title: /^([a-zÁ-ÿ0-9\-]\s*)+$/i,
-    director: /^([a-zÁ-ÿ\-]\s*)+$/i,
+    director: /^([a-zÁ-ÿ\-\W]\s*)+$/i,
     year: /^\d{4}$/,
     /*year: `/(18\d\d|19\d\d|200\d|201\d|20[0-${yearText[2]}][0-${yearText[3]}])/`,*/
   };
